@@ -1,39 +1,66 @@
-public class Código7 {
+import java.util.HashMap;
+import java.util.Scanner;
 
-    Scanner s = new Scanner();
+public class Codigo7 {
+    public static void main(String[] args) {
 
-    HashMap<Byte, Double> ca = new HashMap<>();
+        // Error: Estaba usando `Scanner s = new Scanner();` sin pasar System.in como argumento.
+        Scanner s = new Scanner(System.in);
 
-    capitales.put("Canadá", "Otawwa");
-    capitales.put("Estados Unidos", "Washington DC");
-    capitales.put("México", "México DF");
-    capitales.put("Belice", "Belmopán");
-    capitales.put("Costa rica", "San José");
-    capitales.put("El Salvador");
-    capitales.put("Guatemala", "Ciudad de Guatemala");
-    capitales.put("Honduras", "Tegucigalpa");
-    capitales.put("Nicaragua", "Managua");
-    capitales.put("Panamá", "Panamá");
-   
-    Sting c = "";
+        // Error: Estaba usando `HashMap<Byte, Double>`, lo cual no tiene sentido para un mapa de países y capitales.
+        // Además, la variable usada era `ca`, pero luego usabas `capitales` que no existía.
+        HashMap<String, String> capitales = new HashMap<>();
 
-    do {
-      System.in.print("Escribe el nombre de un país y te diré su capital: ");
-      c = s.nextDouble();
-      
-      if (!c.equal("salir")) {
-        if (ca.containsValue(c)) {
-          System.print("La capital de " + c);
-          System.out.println(" es " + ca.put(c));
-        } else {
-          System.out.print("No conozco la respuesta ");
-          System.out.print("¿cuál es la capital de " + c + "?: ");
-          String ca = s.nextLine();
-          ca.put(c, ca);
-          System.out.println("Gracias por enseñarme nuevas capitales");
-        }
-      }
-    } wile (!c.equals("salir");
-  }
+        // Error de sintaxis: Faltaba el valor para "El Salvador".
+        capitales.put("Canadá", "Ottawa"); // Error ortográfico corregido
+        capitales.put("Estados Unidos", "Washington DC");
+        capitales.put("México", "México DF");
+        capitales.put("Belice", "Belmopán");
+        capitales.put("Costa Rica", "San José"); // Corrijo capitalización
+        capitales.put("El Salvador", "San Salvador"); // Añadido valor faltante
+        capitales.put("Guatemala", "Ciudad de Guatemala");
+        capitales.put("Honduras", "Tegucigalpa");
+        capitales.put("Nicaragua", "Managua");
+        capitales.put("Panamá", "Panamá");
 
+        String c = "";
+
+        // Inicio del ciclo
+        do {
+            // Error: `System.in.print` no existe. Lo correcto es `System.out.print`
+            System.out.print("Escribe el nombre de un país y te diré su capital (o escribe 'salir' para terminar): ");
+            
+            // Error: `s.nextDouble()` no es correcto, se espera un String. Cambié por `nextLine()`
+            c = s.nextLine();
+
+            // Error: `equal` no existe. La forma correcta es `equals`
+            if (!c.equalsIgnoreCase("salir")) {
+                
+                // Error: `containsValue` no es lo correcto. Buscamos por clave, no por valor.
+                if (capitales.containsKey(c)) {
+                    // Error: `System.print` no existe. Es `System.out.print`
+                    System.out.print("La capital de " + c);
+                    // Error: `ca.put(c)` no devuelve el valor, eso inserta una clave. Lo correcto es `get(c)`
+                    System.out.println(" es " + capitales.get(c));
+                } else {
+                    System.out.print("No conozco la respuesta. ");
+                    System.out.print("¿Cuál es la capital de " + c + "?: ");
+
+                    // Usabas `String ca = s.nextLine();`, pero ya había una variable con nombre `ca` como HashMap.
+                    // Cambié el nombre a `nuevaCapital` para evitar confusión.
+                    String nuevaCapital = s.nextLine();
+
+                    // Guardamos el nuevo par en el mapa
+                    capitales.put(c, nuevaCapital);
+
+                    System.out.println("Gracias por enseñarme nuevas capitales.");
+                }
+            }
+
+        // Error: `wile` está mal escrito. Debe ser `while`
+        } while (!c.equalsIgnoreCase("salir"));
+
+        // Cerramos el scanner
+        s.close();
+    }
 }
